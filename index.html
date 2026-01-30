@@ -3,56 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recaudo Banda Sinfónica - San José</title>
+    <title>Gestión Banda Sinfónica - San José</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-green-50 min-h-screen flex flex-col items-center p-4">
+<body class="bg-slate-50 min-h-screen pb-20">
 
-    <header class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-green-800">Banda Sinfónica Estudiantil</h1>
-        <p class="text-green-600 italic">Campaña de Recolección de Plátano - San José, Caldas</p>
+    <header class="bg-green-700 text-white p-6 shadow-lg text-center">
+        <h1 class="text-2xl font-bold">Banda Sinfónica San José</h1>
+        <p class="text-sm opacity-90 text-green-100">Campaña de Recolección de Plátano</p>
     </header>
 
-    <div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md">
-        <form id="registroForm" class="space-y-4">
-            <div>
-                <label class="block text-gray-700 font-semibold">Nombre de la Finca / Donante</label>
-                <input type="text" id="finca" required class="w-full border-2 border-green-200 p-3 rounded-lg focus:border-green-500 outline-none">
-            </div>
-
-            <div>
-                <label class="block text-gray-700 font-semibold">¿Hizo aporte hoy?</label>
-                <select id="aporto" class="w-full border-2 border-green-200 p-3 rounded-lg focus:border-green-500 outline-none">
-                    <option value="Sí">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="block text-gray-700 font-semibold">Cantidad de Racimos</label>
-                <input type="number" id="cantidad" value="0" min="0" class="w-full border-2 border-green-200 p-3 rounded-lg focus:border-green-500 outline-none">
-            </div>
-
-            <button type="submit" id="btnEnviar" class="w-full bg-green-600 text-white font-bold p-4 rounded-lg hover:bg-green-700 transition duration-300">
-                REGISTRAR APORTE 🍌
-            </button>
-        </form>
-        <p id="mensaje" class="mt-4 text-center hidden font-medium"></p>
+    <div class="flex border-b bg-white sticky top-0 z-10 shadow-sm">
+        <button onclick="mostrarSeccion('registro')" id="btn-registro" class="flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700">
+            <i class="fas fa-plus-circle mr-2"></i>REGISTRAR
+        </button>
+        <button onclick="mostrarSeccion('directorio')" id="btn-directorio" class="flex-1 p-4 font-bold text-gray-500 border-b-4 border-transparent">
+            <i class="fas fa-address-book mr-2"></i>DIRECTORIO
+        </button>
     </div>
+
+    <main id="seccion-registro" class="p-4 max-w-md mx-auto">
+        <div class="bg-white p-6 rounded-xl shadow-md mt-4">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Nueva Finca</h2>
+            <form id="registroForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600">Nombre de la Finca / Dueño</label>
+                    <input type="text" id="finca" required placeholder="Ej: Finca La Esperanza" class="w-full border rounded-lg p-3 mt-1 outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600">¿Hizo aporte?</label>
+                    <select id="aporto" class="w-full border rounded-lg p-3 mt-1 outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="Sí">✅ Sí (Entregó racimo)</option>
+                        <option value="No">❌ No (Pendiente)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600">Cantidad de Racimos</label>
+                    <input type="number" id="cantidad" value="0" min="0" class="w-full border rounded-lg p-3 mt-1 outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <button type="submit" id="btnEnviar" class="w-full bg-green-600 text-white font-bold py-4 rounded-lg shadow-md active:scale-95 transition-all">
+                    GUARDAR REGISTRO 🍌
+                </button>
+            </form>
+            <p id="mensaje" class="mt-4 text-center hidden"></p>
+        </div>
+    </main>
+
+    <main id="seccion-directorio" class="p-4 max-w-md mx-auto hidden">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-gray-800">Registros Guardados</h2>
+            <button onclick="cargarDatos()" class="text-blue-600 font-bold text-sm bg-blue-50 px-3 py-1 rounded-full">
+                <i class="fas fa-sync-alt mr-1"></i> Actualizar
+            </button>
+        </div>
+        
+        <div id="lista-directorio" class="space-y-3">
+            <p class="text-center text-gray-500 py-10">Cargando directorio...</p>
+        </div>
+    </main>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyUpDTaVWxI6kXdxhfDttUtTmXMBGhVrO7VI0Zp5loPBd-EzgLl7o2u3jqDqMsxw0HZbw/exec';
-        const form = document.getElementById('registroForm');
-        const btn = document.getElementById('btnEnviar');
-        const msg = document.getElementById('mensaje');
 
+        // LÓGICA DE NAVEGACIÓN
+        function mostrarSeccion(seccion) {
+            const secRegistro = document.getElementById('seccion-registro');
+            const secDirectorio = document.getElementById('seccion-directorio');
+            const btnReg = document.getElementById('btn-registro');
+            const btnDir = document.getElementById('btn-directorio');
+
+            if(seccion === 'registro') {
+                secRegistro.classList.remove('hidden');
+                secDirectorio.classList.add('hidden');
+                btnReg.className = "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700";
+                btnDir.className = "flex-1 p-4 font-bold text-gray-500 border-b-4 border-transparent";
+            } else {
+                secRegistro.classList.add('hidden');
+                secDirectorio.classList.remove('hidden');
+                btnDir.className = "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700";
+                btnReg.className = "flex-1 p-4 font-bold text-gray-500 border-b-4 border-transparent";
+                cargarDatos();
+            }
+        }
+
+        // LÓGICA DE REGISTRO (ENVIAR A GOOGLE SHEET)
+        const form = document.getElementById('registroForm');
         form.addEventListener('submit', e => {
             e.preventDefault();
+            const btn = document.getElementById('btnEnviar');
+            const msg = document.getElementById('mensaje');
+            
             btn.disabled = true;
             btn.innerText = "Guardando...";
-            msg.classList.remove('hidden');
-            msg.innerText = "Enviando datos a la nube...";
-            msg.className = "mt-4 text-center text-blue-600";
+            msg.className = "mt-4 text-center text-blue-600 block";
+            msg.innerText = "Conectando con Drive...";
 
             const data = {
                 finca: document.getElementById('finca').value,
@@ -60,27 +105,58 @@
                 cantidad: document.getElementById('cantidad').value
             };
 
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors', // Importante para Google Apps Script
-                cache: 'no-cache',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
+            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
             .then(() => {
-                msg.innerText = "✅ ¡Registro exitoso! Gracias por el aporte.";
-                msg.className = "mt-4 text-center text-green-600 font-bold";
+                msg.innerText = "✅ ¡Guardado en Google Sheets!";
+                msg.className = "mt-4 text-center text-green-600 font-bold block";
                 form.reset();
                 btn.disabled = false;
-                btn.innerText = "REGISTRAR APORTE 🍌";
+                btn.innerText = "GUARDAR REGISTRO 🍌";
+                setTimeout(() => msg.classList.add('hidden'), 3000);
             })
-            .catch(error => {
-                msg.innerText = "❌ Error al guardar. Intenta de nuevo.";
-                msg.className = "mt-4 text-center text-red-600";
+            .catch(() => {
+                alert("Error al conectar. Verifica tu internet.");
                 btn.disabled = false;
-                btn.innerText = "REGISTRAR APORTE 🍌";
+                btn.innerText = "GUARDAR REGISTRO 🍌";
             });
         });
+
+        // LÓGICA DEL DIRECTORIO (LEER DE GOOGLE SHEET)
+        function cargarDatos() {
+            const lista = document.getElementById('lista-directorio');
+            lista.innerHTML = '<p class="text-center text-gray-500 py-10">Obteniendo datos de San José...</p>';
+
+            fetch(scriptURL)
+            .then(res => res.json())
+            .then(datos => {
+                lista.innerHTML = "";
+                if(datos.length === 0) {
+                    lista.innerHTML = '<p class="text-center text-gray-500 py-10">No hay registros aún.</p>';
+                    return;
+                }
+                // Los mostramos en orden inverso (el más reciente primero)
+                datos.reverse().forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-4 rounded-lg shadow-sm border-l-4 " + (item.aporto === 'Sí' ? 'border-green-500' : 'border-red-400');
+                    card.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-gray-800">${item.finca}</h3>
+                                <p class="text-xs text-gray-500 italic">Aporte: ${item.aporto}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xl font-bold text-green-700">${item.cantidad}</span>
+                                <p class="text-[10px] text-gray-400 uppercase font-bold">Racimos</p>
+                            </div>
+                        </div>
+                    `;
+                    lista.appendChild(card);
+                });
+            })
+            .catch(err => {
+                lista.innerHTML = '<p class="text-center text-red-500 py-10">Error al cargar el directorio. Asegúrate de que el Script esté publicado correctamente.</p>';
+            });
+        }
     </script>
 </body>
 </html>
