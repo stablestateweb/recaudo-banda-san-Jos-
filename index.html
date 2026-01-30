@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recaudo Banda Sinfónica - San José</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 min-h-screen flex flex-col items-center p-4">
+
+    <header class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-green-800">Banda Sinfónica Estudiantil</h1>
+        <p class="text-green-600 italic">Campaña de Recolección de Plátano - San José, Caldas</p>
+    </header>
+
+    <div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md">
+        <form id="registroForm" class="space-y-4">
+            <div>
+                <label class="block text-gray-700 font-semibold">Nombre de la Finca / Donante</label>
+                <input type="text" id="finca" required class="w-full border-2 border-green-200 p-3 rounded-lg focus:border-green-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold">¿Hizo aporte hoy?</label>
+                <select id="aporto" class="w-full border-2 border-green-200 p-3 rounded-lg focus:border-green-500 outline-none">
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold">Cantidad de Racimos</label>
+                <input type="number" id="cantidad" value="0" min="0" class="w-full border-2 border-green-200 p-3 rounded-lg focus:border-green-500 outline-none">
+            </div>
+
+            <button type="submit" id="btnEnviar" class="w-full bg-green-600 text-white font-bold p-4 rounded-lg hover:bg-green-700 transition duration-300">
+                REGISTRAR APORTE 🍌
+            </button>
+        </form>
+        <p id="mensaje" class="mt-4 text-center hidden font-medium"></p>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyUpDTaVWxI6kXdxhfDttUtTmXMBGhVrO7VI0Zp5loPBd-EzgLl7o2u3jqDqMsxw0HZbw/exec';
+        const form = document.getElementById('registroForm');
+        const btn = document.getElementById('btnEnviar');
+        const msg = document.getElementById('mensaje');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerText = "Guardando...";
+            msg.classList.remove('hidden');
+            msg.innerText = "Enviando datos a la nube...";
+            msg.className = "mt-4 text-center text-blue-600";
+
+            const data = {
+                finca: document.getElementById('finca').value,
+                aporto: document.getElementById('aporto').value,
+                cantidad: document.getElementById('cantidad').value
+            };
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', // Importante para Google Apps Script
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                msg.innerText = "✅ ¡Registro exitoso! Gracias por el aporte.";
+                msg.className = "mt-4 text-center text-green-600 font-bold";
+                form.reset();
+                btn.disabled = false;
+                btn.innerText = "REGISTRAR APORTE 🍌";
+            })
+            .catch(error => {
+                msg.innerText = "❌ Error al guardar. Intenta de nuevo.";
+                msg.className = "mt-4 text-center text-red-600";
+                btn.disabled = false;
+                btn.innerText = "REGISTRAR APORTE 🍌";
+            });
+        });
+    </script>
+</body>
+</html>
