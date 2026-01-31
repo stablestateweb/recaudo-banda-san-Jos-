@@ -3,50 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión Banda San José v.1.3</title>
+    <title>Gestión Banda San José v.1.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        /* Esta es la magia: la imagen ahora es parte del código */
-        .header-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
-                              url('https://images.unsplash.com/photo-1528825831135-33b1b7a02ed7?auto=format&fit=crop&q=80&w=1000');
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
 </head>
 <body class="bg-slate-100 min-h-screen pb-20">
 
-    <header class="header-bg text-white p-10 shadow-lg text-center relative border-b-4 border-yellow-500">
-        <div class="relative z-10">
-            <h1 class="text-3xl font-black drop-shadow-2xl tracking-tight">Banda Sinfónica San José</h1>
-            <p class="text-md opacity-100 text-yellow-300 font-bold italic drop-shadow-md mt-1">Campaña de Recolección de Plátano 🍌</p>
-            <span class="absolute -top-6 -right-4 bg-yellow-500 text-green-900 text-[10px] font-black px-2 py-1 rounded-full shadow-md">v.1.3</span>
-        </div>
+    <header class="bg-green-800 text-white p-6 shadow-lg text-center relative">
+        <h1 class="text-2xl font-bold">Banda Sinfónica San José</h1>
+        <p class="text-sm opacity-90 text-green-100 italic">Recolección de Plátano - Caldas</p>
+        <span class="absolute top-2 right-2 bg-green-900 text-[10px] px-2 py-1 rounded">v.1.1</span>
     </header>
 
     <div class="flex border-b bg-white sticky top-0 z-10 shadow-sm">
-        <button onclick="mostrarSeccion('registro')" id="btn-registro" class="flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700 transition-all">
+        <button onclick="mostrarSeccion('registro')" id="btn-registro" class="flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700">
             <i class="fas fa-edit mr-2"></i>REGISTRO
         </button>
-        <button onclick="mostrarSeccion('directorio')" id="btn-directorio" class="flex-1 p-4 font-bold text-gray-500 border-b-4 border-transparent transition-all">
+        <button onclick="mostrarSeccion('directorio')" id="btn-directorio" class="flex-1 p-4 font-bold text-gray-500 border-b-4 border-transparent">
             <i class="fas fa-list-ul mr-2"></i>DIRECTORIO
         </button>
     </div>
 
     <main id="seccion-registro" class="p-4 max-w-md mx-auto">
-        <div class="bg-white p-6 rounded-2xl shadow-md mt-4 border-t-8 border-green-600">
-            <div class="flex items-center mb-4">
-                <div class="bg-green-100 p-3 rounded-full mr-3 text-green-600">
-                    <i class="fas fa-tractor text-xl"></i>
-                </div>
-                <h2 class="text-xl font-bold text-gray-800 tracking-tight">Datos de la Finca</h2>
-            </div>
+        <div class="bg-white p-6 rounded-2xl shadow-md mt-4 border-t-4 border-green-600">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 tracking-tight">Datos de la Finca</h2>
             <form id="registroForm" class="space-y-4">
+                
                 <div>
-                    <label class="block text-sm font-semibold text-gray-600">Vereda de San José</label>
-                    <select id="vereda" required class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-800">
+                    <label class="block text-sm font-semibold text-gray-600">Vereda</label>
+                    <select id="vereda" required class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-700">
                         <option value="" disabled selected>Seleccione la vereda...</option>
                         <option value="El Contento">El Contento</option>
                         <option value="La Paz">La Paz</option>
@@ -57,23 +42,26 @@
                         <option value="Otras">Otras</option>
                     </select>
                 </div>
+
                 <div>
-                    <label class="block text-sm font-semibold text-gray-600">Nombre de la Finca / Donante</label>
-                    <input type="text" id="finca" required placeholder="Escriba el nombre" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-800">
+                    <label class="block text-sm font-semibold text-gray-600">Nombre de la Finca</label>
+                    <input type="text" id="finca" required placeholder="Nombre del predio" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-700">
                 </div>
+
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-semibold text-gray-600">¿Aportó?</label>
-                        <select id="aporto" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-800">
-                            <option value="Sí">✅ Sí</option>
-                            <option value="No">❌ No</option>
+                        <select id="aporto" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-700">
+                            <option value="Sí">Sí</option>
+                            <option value="No">No</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-600">Racimos</label>
-                        <input type="number" id="cantidad" value="0" min="0" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-800">
+                        <input type="number" id="cantidad" value="0" min="0" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-700">
                     </div>
                 </div>
+
                 <button type="submit" id="btnEnviar" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 transition-all mt-4 flex justify-center items-center">
                     <span>GUARDAR REGISTRO</span> <span class="ml-2">🍌</span>
                 </button>
@@ -84,18 +72,19 @@
 
     <main id="seccion-directorio" class="p-4 max-w-md mx-auto hidden">
         <div class="flex justify-between items-center mb-4 mt-2">
-            <h2 class="text-xl font-bold text-gray-800">Listado de Apoyos</h2>
-            <button onclick="cargarDatos()" class="bg-green-600 text-white p-2 px-4 rounded-full shadow-md flex items-center text-sm font-bold active:scale-90 transition-all">
-                <i class="fas fa-sync-alt mr-2"></i> ACTUALIZAR
+            <h2 class="text-xl font-bold text-gray-800">Directorio de Aportes</h2>
+            <button onclick="cargarDatos()" class="bg-white border text-green-700 p-2 rounded-lg shadow-sm">
+                <i class="fas fa-sync-alt"></i>
             </button>
         </div>
+        
         <div id="lista-directorio" class="space-y-3">
-            <p class="text-center text-gray-500 py-10 italic">Cargando...</p>
+            <p class="text-center text-gray-500 py-10 italic text-sm text-gray-600">Cargando datos del municipio...</p>
         </div>
     </main>
 
     <footer class="text-center p-4 text-gray-400 text-[10px] uppercase tracking-widest fixed bottom-0 w-full bg-slate-100">
-        Banda Sinfónica San José | v.1.3
+        Sistema de Gestión Estudiantil | v.1.1
     </footer>
 
     <script>
@@ -128,9 +117,9 @@
             const msg = document.getElementById('mensaje');
             
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Guardando...';
-            msg.className = "mt-4 text-center text-blue-600 block text-sm font-medium animate-pulse";
-            msg.innerText = "Enviando a la nube...";
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Procesando...';
+            msg.className = "mt-4 text-center text-blue-600 block text-sm font-medium";
+            msg.innerText = "Enviando a la base de datos...";
 
             const data = {
                 finca: document.getElementById('finca').value,
@@ -141,15 +130,15 @@
 
             fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
             .then(() => {
-                msg.innerText = "✅ ¡Registrado con éxito!";
-                msg.className = "mt-4 text-center text-green-700 font-bold block bg-green-50 p-3 rounded-lg border border-green-200";
+                msg.innerText = "✅ Registro exitoso en " + data.vereda;
+                msg.className = "mt-4 text-center text-green-700 font-bold block bg-green-50 p-3 rounded-lg";
                 form.reset();
                 btn.disabled = false;
                 btn.innerHTML = 'GUARDAR REGISTRO 🍌';
                 setTimeout(() => msg.classList.add('hidden'), 4000);
             })
             .catch(() => {
-                alert("Error de red. Intenta nuevamente.");
+                alert("Error de conexión.");
                 btn.disabled = false;
                 btn.innerHTML = 'GUARDAR REGISTRO 🍌';
             });
@@ -157,38 +146,16 @@
 
         function cargarDatos() {
             const lista = document.getElementById('lista-directorio');
-            lista.innerHTML = '<div class="text-center py-10"><i class="fas fa-circle-notch fa-spin text-green-600 text-3xl"></i><p class="mt-2 text-gray-500 text-sm">Buscando datos...</p></div>';
+            lista.innerHTML = '<div class="text-center py-10"><i class="fas fa-circle-notch fa-spin text-green-600 text-3xl"></i></div>';
 
             fetch(scriptURL)
             .then(res => res.json())
             .then(datos => {
                 lista.innerHTML = "";
                 if(datos.length === 0) {
-                    lista.innerHTML = '<p class="text-center text-gray-500 py-10">No hay registros hoy.</p>';
+                    lista.innerHTML = '<p class="text-center text-gray-500 py-10">No hay registros.</p>';
                     return;
                 }
                 datos.reverse().forEach(item => {
                     const card = document.createElement('div');
-                    card.className = "bg-white p-4 rounded-xl shadow-sm border-l-8 " + (item.aporto === 'Sí' ? 'border-green-500' : 'border-amber-400');
-                    card.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-bold text-gray-800 leading-tight">${item.finca}</h3>
-                                <p class="text-[11px] text-gray-500 font-bold uppercase mt-1"><i class="fas fa-map-marker-alt mr-1 text-red-500"></i>${item.vereda || 'Vereda'}</p>
-                            </div>
-                            <div class="bg-green-50 p-2 rounded-lg text-center min-w-[70px] border border-green-100">
-                                <span class="text-2xl font-black text-green-800">${item.cantidad}</span>
-                                <p class="text-[9px] text-green-600 font-black uppercase tracking-tighter leading-none">Racimos</p>
-                            </div>
-                        </div>
-                    `;
-                    lista.appendChild(card);
-                });
-            })
-            .catch(err => {
-                lista.innerHTML = '<p class="text-center text-red-500 py-10">Error de conexión. Verifica internet.</p>';
-            });
-        }
-    </script>
-</body>
-</html>
+                    card.className = "bg-white p-4 rounded-xl shadow-sm border-l-4 " + (item.aporto === 'Sí' ? 'border-green-500' : 'border
