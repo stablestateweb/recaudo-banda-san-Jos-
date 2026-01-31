@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión Banda San José v.1.1</title>
+    <title>Gestión Banda San José v.1.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-slate-100 min-h-screen pb-20">
 
-    <header class="bg-green-800 text-white p-6 shadow-lg text-center relative">
-        <h1 class="text-2xl font-bold">Banda Sinfónica San José</h1>
-        <p class="text-sm opacity-90 text-green-100 italic">Recolección de Plátano - Caldas</p>
-        <span class="absolute top-2 right-2 bg-green-900 text-[10px] px-2 py-1 rounded">v.1.1</span>
+    <header class="relative text-white p-6 shadow-lg text-center bg-cover bg-center h-48 flex flex-col justify-center" 
+            style="background-image: url('https://i.imgur.com/your-image-url-here.png');">
+            <div class="absolute inset-0 bg-green-900 bg-opacity-70"></div>
+        <div class="relative z-10">
+            <h1 class="text-3xl font-bold text-white drop-shadow-lg">Banda Sinfónica San José</h1>
+            <p class="text-md opacity-90 text-green-100 italic drop-shadow-md">Campaña de Recolección de Plátano - Caldas</p>
+            <span class="absolute top-2 right-2 bg-green-900 text-[10px] px-2 py-1 rounded">v.1.2</span>
+        </div>
     </header>
 
     <div class="flex border-b bg-white sticky top-0 z-10 shadow-sm">
@@ -31,7 +35,7 @@
                 
                 <div>
                     <label class="block text-sm font-semibold text-gray-600">Vereda</label>
-                    <select id="vereda" required class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-700">
+                    <select id="vereda" required class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50">
                         <option value="" disabled selected>Seleccione la vereda...</option>
                         <option value="El Contento">El Contento</option>
                         <option value="La Paz">La Paz</option>
@@ -45,20 +49,20 @@
 
                 <div>
                     <label class="block text-sm font-semibold text-gray-600">Nombre de la Finca</label>
-                    <input type="text" id="finca" required placeholder="Nombre del predio" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-700">
+                    <input type="text" id="finca" required placeholder="Nombre del predio" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50">
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-semibold text-gray-600">¿Aportó?</label>
-                        <select id="aporto" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-700">
+                        <select id="aporto" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50">
                             <option value="Sí">Sí</option>
                             <option value="No">No</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-600">Racimos</label>
-                        <input type="number" id="cantidad" value="0" min="0" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50 text-gray-700">
+                        <input type="number" id="cantidad" value="0" min="0" class="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-gray-50">
                     </div>
                 </div>
 
@@ -73,18 +77,18 @@
     <main id="seccion-directorio" class="p-4 max-w-md mx-auto hidden">
         <div class="flex justify-between items-center mb-4 mt-2">
             <h2 class="text-xl font-bold text-gray-800">Directorio de Aportes</h2>
-            <button onclick="cargarDatos()" class="bg-white border text-green-700 p-2 rounded-lg shadow-sm">
+            <button onclick="cargarDatos()" class="bg-white border text-green-700 p-2 rounded-lg shadow-sm active:rotate-180 transition-transform duration-500">
                 <i class="fas fa-sync-alt"></i>
             </button>
         </div>
         
         <div id="lista-directorio" class="space-y-3">
-            <p class="text-center text-gray-500 py-10 italic text-sm text-gray-600">Cargando datos del municipio...</p>
+            <p class="text-center text-gray-500 py-10 italic text-sm">Cargando datos del municipio...</p>
         </div>
     </main>
 
-    <footer class="text-center p-4 text-gray-400 text-[10px] uppercase tracking-widest fixed bottom-0 w-full bg-slate-100">
-        Sistema de Gestión Estudiantil | v.1.1
+    <footer class="text-center p-4 text-gray-400 text-[10px] uppercase tracking-widest">
+        Sistema de Gestión Estudiantil | v.1.2
     </footer>
 
     <script>
@@ -138,7 +142,7 @@
                 setTimeout(() => msg.classList.add('hidden'), 4000);
             })
             .catch(() => {
-                alert("Error de conexión.");
+                alert("Hubo un error. Revisa tu señal de internet.");
                 btn.disabled = false;
                 btn.innerHTML = 'GUARDAR REGISTRO 🍌';
             });
@@ -153,9 +157,32 @@
             .then(datos => {
                 lista.innerHTML = "";
                 if(datos.length === 0) {
-                    lista.innerHTML = '<p class="text-center text-gray-500 py-10">No hay registros.</p>';
+                    lista.innerHTML = '<p class="text-center text-gray-500 py-10">No hay fincas registradas.</p>';
                     return;
                 }
                 datos.reverse().forEach(item => {
                     const card = document.createElement('div');
-                    card.className = "bg-white p-4 rounded-xl shadow-sm border-l-4 " + (item.aporto === 'Sí' ? 'border-green-500' : 'border
+                    card.className = "bg-white p-4 rounded-xl shadow-sm border-l-4 " + (item.aporto === 'Sí' ? 'border-green-500' : 'border-amber-400');
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-gray-800 leading-tight">${item.finca}</h3>
+                                <p class="text-[11px] text-gray-400 font-bold uppercase mt-1"><i class="fas fa-map-marker-alt mr-1 text-red-400"></i>${item.vereda || 'Sin vereda'}</p>
+                                <p class="text-xs text-gray-500 mt-1 italic">Aporte: ${item.aporto}</p>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded-lg text-center min-w-[60px]">
+                                <span class="text-xl font-black text-green-800 leading-none">${item.cantidad}</span>
+                                <p class="text-[9px] text-gray-400 font-bold uppercase leading-none">Racimos</p>
+                            </div>
+                        </div>
+                    `;
+                    lista.appendChild(card);
+                });
+            })
+            .catch(err => {
+                lista.innerHTML = '<p class="text-center text-red-500 py-10">Error de conexión. Intenta actualizar.</p>';
+            });
+        }
+    </script>
+</body>
+</html>
