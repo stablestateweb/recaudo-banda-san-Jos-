@@ -3,32 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión Banda San José v.1.5</title>
+    <title>Gestión Banda San José v.1.6</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            /* Esto pone la imagen fija en todo el fondo */
-            background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), 
-                              url('./fondo.png');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('./fondo.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
         }
-        /* Un toque de transparencia para que el contenido resalte sobre el fondo */
         .glass-effect {
-            background-color: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
         }
     </style>
 </head>
 <body class="min-h-screen pb-20">
 
-    <header class="bg-green-800/90 text-white p-6 shadow-lg text-center relative backdrop-blur-sm">
-        <h1 class="text-2xl font-bold">Banda Sinfónica San José</h1>
-        <p class="text-sm opacity-90 text-green-100 italic">Campaña de Recolección de Plátano</p>
-        <span class="absolute top-2 right-2 bg-yellow-500 text-green-900 text-[10px] px-2 py-1 rounded font-bold">v.1.5</span>
+    <header class="bg-green-800/90 text-white p-6 shadow-lg text-center relative">
+        <h1 class="text-2xl font-bold uppercase tracking-wider">Banda Sinfónica San José</h1>
+        <p class="text-sm opacity-90 text-yellow-400 font-bold italic">Gestión de Recolección de Plátano</p>
+        <span class="absolute top-2 right-2 bg-yellow-500 text-green-900 text-[10px] px-2 py-1 rounded font-black shadow-sm">v.1.6</span>
     </header>
 
     <div class="flex bg-white/95 sticky top-0 z-10 shadow-md">
@@ -42,37 +39,34 @@
 
     <main id="seccion-registro" class="p-4 max-w-md mx-auto">
         <div class="glass-effect p-6 rounded-3xl shadow-2xl mt-4 border-t-8 border-green-600">
-            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                <i class="fas fa-banana text-yellow-500 mr-2"></i> Nuevo Registro
-            </h2>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Nueva Finca</h2>
+                <button onclick="abrirModalVeredas()" class="text-[10px] bg-blue-600 text-white px-2 py-1 rounded-full font-bold uppercase shadow-sm active:scale-95">
+                    + Agregar Vereda
+                </button>
+            </div>
+            
             <form id="registroForm" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-600">Vereda</label>
-                    <select id="vereda" required class="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-white">
-                        <option value="" disabled selected>Seleccione la vereda...</option>
-                        <option value="El Contento">El Contento</option>
-                        <option value="La Paz">La Paz</option>
-                        <option value="Buenavista">Buenavista</option>
-                        <option value="Arrayanes">Arrayanes</option>
-                        <option value="La Ciénaga">La Ciénaga</option>
-                        <option value="Guayabito">Guayabito</option>
-                        <option value="Otras">Otras</option>
+                    <label class="block text-sm font-semibold text-gray-600 italic">¿En qué vereda están?</label>
+                    <select id="vereda" required class="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 outline-none focus:border-green-500 bg-white text-gray-800">
+                        <option value="" disabled selected>Cargando veredas...</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-600">Nombre de la Finca</label>
-                    <input type="text" id="finca" required placeholder="Nombre del predio" class="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 outline-none focus:border-green-500">
+                    <label class="block text-sm font-semibold text-gray-600 italic">Nombre de la Finca</label>
+                    <input type="text" id="finca" required placeholder="Escriba aquí..." class="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 outline-none focus:border-green-500">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-600">¿Aportó?</label>
+                        <label class="block text-sm font-semibold text-gray-600 italic">¿Hubo aporte?</label>
                         <select id="aporto" class="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 outline-none focus:border-green-500">
-                            <option value="Sí">Sí</option>
-                            <option value="No">No</option>
+                            <option value="Sí">✅ Sí</option>
+                            <option value="No">❌ No</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-600">Racimos</label>
+                        <label class="block text-sm font-semibold text-gray-600 italic">Racimos</label>
                         <input type="number" id="cantidad" value="0" min="0" class="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 outline-none focus:border-green-500">
                     </div>
                 </div>
@@ -85,42 +79,89 @@
     </main>
 
     <main id="seccion-directorio" class="p-4 max-w-md mx-auto hidden">
-        <div class="flex justify-between items-center mb-4 mt-2 glass-effect p-3 rounded-xl shadow-md">
-            <h2 class="text-lg font-bold text-gray-800">Directorio de Aportes</h2>
+        <div class="flex justify-between items-center mb-4 glass-effect p-3 rounded-xl shadow-md">
+            <h2 class="text-lg font-bold text-gray-800">Apoyos Recibidos</h2>
             <button onclick="cargarDatos()" class="bg-green-600 text-white p-2 px-4 rounded-lg shadow-sm text-sm font-bold active:rotate-180 transition-all duration-500">
                 <i class="fas fa-sync-alt"></i>
             </button>
         </div>
-        <div id="lista-directorio" class="space-y-3">
-            <p class="text-center text-white font-bold bg-black/30 py-10 rounded-xl backdrop-blur-sm">Cargando datos...</p>
-        </div>
+        <div id="lista-directorio" class="space-y-3"></div>
     </main>
 
+    <div id="modalVeredas" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+        <div class="bg-white p-6 rounded-3xl w-full max-w-sm shadow-2xl">
+            <h3 class="font-bold text-lg mb-4 text-gray-800 border-b pb-2">Nueva Vereda San José</h3>
+            <input type="text" id="nuevaVeredaInput" placeholder="Nombre de la vereda" class="w-full border-2 border-gray-100 rounded-xl p-3 outline-none focus:border-blue-500 mb-4">
+            <div class="flex gap-2">
+                <button onclick="cerrarModalVeredas()" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-bold">Cancelar</button>
+                <button onclick="guardarNuevaVereda()" id="btnGuardarVereda" class="flex-1 bg-blue-600 text-white py-3 rounded-xl font-bold">Guardar</button>
+            </div>
+        </div>
+    </div>
+
     <footer class="text-center p-3 text-gray-600 text-[10px] uppercase font-bold tracking-widest fixed bottom-0 w-full bg-white/80 backdrop-blur-sm">
-        Banda Sinfónica San José | v.1.5
+        Banda Sinfónica San José | v.1.6
     </footer>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyUpDTaVWxI6kXdxhfDttUtTmXMBGhVrO7VI0Zp5loPBd-EzgLl7o2u3jqDqMsxw0HZbw/exec';
+        let veredasGlobales = [];
+
+        // Al iniciar, cargamos las veredas
+        window.onload = cargarVeredas;
+
+        function cargarVeredas() {
+            const selectVereda = document.getElementById('vereda');
+            selectVereda.innerHTML = '<option disabled selected>Obteniendo veredas...</option>';
+
+            fetch(scriptURL + '?getVeredas=true')
+            .then(res => res.json())
+            .then(veredas => {
+                veredasGlobales = veredas;
+                selectVereda.innerHTML = '<option value="" disabled selected>Seleccione la vereda...</option>';
+                veredas.forEach(v => {
+                    let opt = document.createElement('option');
+                    opt.value = v;
+                    opt.innerText = v;
+                    selectVereda.appendChild(opt);
+                });
+            })
+            .catch(() => {
+                selectVereda.innerHTML = '<option disabled>Error al cargar. Intente de nuevo.</option>';
+            });
+        }
+
+        function abrirModalVeredas() { document.getElementById('modalVeredas').classList.remove('hidden'); }
+        function cerrarModalVeredas() { document.getElementById('modalVeredas').classList.add('hidden'); }
+
+        function guardarNuevaVereda() {
+            const nombre = document.getElementById('nuevaVeredaInput').value.trim();
+            if(!nombre) return alert("Escriba el nombre");
+            const btn = document.getElementById('btnGuardarVereda');
+            btn.innerText = "Guardando...";
+            btn.disabled = true;
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors', 
+                body: JSON.stringify({ action: 'addVereda', nombre: nombre }) 
+            })
+            .then(() => {
+                alert("Vereda agregada con éxito");
+                document.getElementById('nuevaVeredaInput').value = "";
+                cerrarModalVeredas();
+                btn.innerText = "Guardar";
+                btn.disabled = false;
+                cargarVeredas(); // Recargamos la lista
+            });
+        }
 
         function mostrarSeccion(seccion) {
-            const secRegistro = document.getElementById('seccion-registro');
-            const secDirectorio = document.getElementById('seccion-directorio');
-            const btnReg = document.getElementById('btn-registro');
-            const btnDir = document.getElementById('btn-directorio');
-
-            if(seccion === 'registro') {
-                secRegistro.classList.remove('hidden');
-                secDirectorio.classList.add('hidden');
-                btnReg.className = "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700";
-                btnDir.className = "flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent";
-            } else {
-                secRegistro.classList.add('hidden');
-                secDirectorio.classList.remove('hidden');
-                btnDir.className = "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700";
-                btnReg.className = "flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent";
-                cargarDatos();
-            }
+            document.getElementById('seccion-registro').classList.toggle('hidden', seccion !== 'registro');
+            document.getElementById('seccion-directorio').classList.toggle('hidden', seccion !== 'directorio');
+            document.getElementById('btn-registro').className = seccion === 'registro' ? "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700" : "flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent";
+            document.getElementById('btn-directorio').className = seccion === 'directorio' ? "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700" : "flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent";
+            if(seccion === 'directorio') cargarDatos();
         }
 
         const form = document.getElementById('registroForm');
@@ -131,9 +172,10 @@
             btn.disabled = true;
             btn.innerText = "Guardando...";
             msg.className = "mt-4 text-center text-blue-700 font-bold block bg-blue-50 p-2 rounded-lg";
-            msg.innerText = "Enviando a Drive...";
+            msg.innerText = "Enviando datos...";
 
             const data = {
+                action: 'addRegistro',
                 finca: document.getElementById('finca').value,
                 vereda: document.getElementById('vereda').value, 
                 aporto: document.getElementById('aporto').value,
@@ -148,39 +190,27 @@
                 btn.disabled = false;
                 btn.innerText = "GUARDAR REGISTRO 🍌";
                 setTimeout(() => msg.classList.add('hidden'), 3000);
-            })
-            .catch(() => {
-                alert("Error de conexión.");
-                btn.disabled = false;
-                btn.innerText = "GUARDAR REGISTRO 🍌";
             });
         });
 
         function cargarDatos() {
             const lista = document.getElementById('lista-directorio');
             lista.innerHTML = '<div class="text-center py-10"><i class="fas fa-circle-notch fa-spin text-white text-4xl"></i></div>';
-            fetch(scriptURL)
+            fetch(scriptURL + '?getRegistros=true')
             .then(res => res.json())
             .then(datos => {
                 lista.innerHTML = "";
                 if(datos.length === 0) {
-                    lista.innerHTML = '<p class="text-center text-white font-bold bg-black/40 py-10 rounded-xl">No hay registros hoy.</p>';
+                    lista.innerHTML = '<p class="text-center text-white font-bold bg-black/40 py-10 rounded-xl">No hay registros.</p>';
                     return;
                 }
                 datos.reverse().forEach(item => {
                     const card = document.createElement('div');
                     card.className = "glass-effect p-4 rounded-xl shadow-md border-l-8 " + (item.aporto === 'Sí' ? 'border-green-500' : 'border-amber-400');
-                    card.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-bold text-gray-800">${item.finca}</h3>
-                                <p class="text-[11px] text-gray-500 font-bold uppercase mt-1"><i class="fas fa-map-marker-alt text-red-500 mr-1"></i>${item.vereda || 'Vereda'}</p>
-                            </div>
-                            <div class="bg-green-100 p-2 rounded-lg text-center min-w-[60px] border border-green-200">
-                                <span class="text-xl font-black text-green-800">${item.cantidad}</span>
-                                <p class="text-[9px] text-green-600 font-bold uppercase">Racimos</p>
-                            </div>
-                        </div>`;
+                    card.innerHTML = `<div class="flex justify-between items-start">
+                        <div><h3 class="font-bold text-gray-800">${item.finca}</h3><p class="text-[11px] text-gray-500 font-bold uppercase mt-1"><i class="fas fa-map-marker-alt text-red-500 mr-1"></i>${item.vereda}</p></div>
+                        <div class="bg-green-100 p-2 rounded-lg text-center min-w-[60px] border border-green-200"><span class="text-xl font-black text-green-800">${item.cantidad}</span><p class="text-[9px] text-green-600 font-bold uppercase">Racimos</p></div>
+                    </div>`;
                     lista.appendChild(card);
                 });
             });
