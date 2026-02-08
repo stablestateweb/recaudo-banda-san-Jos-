@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión Banda San José v.1.8</title>
+    <title>Gestión Banda San José v.1.9</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('./fondo.png');
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('./fondo.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -20,129 +20,131 @@
         }
     </style>
 </head>
-<body class="min-h-screen pb-24">
+<body class="min-h-screen pb-24 text-gray-800">
 
-    <header class="bg-green-800/90 text-white p-6 shadow-lg text-center relative border-b-4 border-yellow-500">
-        <h1 class="text-2xl font-bold uppercase tracking-wider">Banda Sinfónica San José</h1>
-        <p class="text-sm opacity-90 text-yellow-400 font-bold italic">Campaña de Recolección de Plátano</p>
-        <span class="absolute top-2 right-2 bg-yellow-500 text-green-900 text-[10px] px-2 py-1 rounded font-black shadow-md">v.1.8</span>
+    <header class="bg-green-800 text-white p-5 text-center shadow-xl border-b-4 border-yellow-500">
+        <h1 class="text-xl font-bold uppercase tracking-tight">Banda Sinfónica San José</h1>
+        <div id="status-online" class="text-[10px] font-bold mt-1 text-green-300 uppercase tracking-widest">
+            ● Sistema en Línea
+        </div>
     </header>
 
-    <div class="flex bg-white/95 sticky top-0 z-20 shadow-md">
-        <button onclick="mostrarSeccion('registro')" id="btn-registro" class="flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700 transition-all">
+    <nav class="flex bg-white sticky top-0 z-30 shadow-md">
+        <button onclick="mostrarSeccion('registro')" id="btn-reg" class="flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700 transition-all">
             <i class="fas fa-edit mr-2"></i>REGISTRO
         </button>
-        <button onclick="mostrarSeccion('directorio')" id="btn-directorio" class="flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent transition-all">
+        <button onclick="mostrarSeccion('directorio')" id="btn-dir" class="flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent transition-all">
             <i class="fas fa-list-ul mr-2"></i>DIRECTORIO
         </button>
-    </div>
+    </nav>
 
-    <main id="seccion-registro" class="p-4 max-w-md mx-auto">
-        <div class="glass-effect p-6 rounded-3xl shadow-2xl mt-4 border-t-8 border-green-600">
-            <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                <i class="fas fa-clipboard-list text-green-600 mr-2"></i> Datos del Aporte
+    <main id="sec-registro" class="p-4 max-w-md mx-auto">
+        <div class="glass-effect p-6 rounded-3xl shadow-2xl border-t-8 border-green-600 mt-2">
+            <h2 id="form-title" class="text-lg font-bold mb-4 flex items-center">
+                <i class="fas fa-file-signature text-green-600 mr-2"></i> Nuevo Aporte
             </h2>
-            
-            <form id="registroForm" class="space-y-4">
+            <form id="mainForm" class="space-y-3">
+                <input type="hidden" id="edit-id">
+                
                 <div>
-                    <label class="block text-sm font-semibold text-gray-600 mb-1">Vereda</label>
-                    <select id="vereda" required class="w-full border-2 border-gray-200 rounded-xl p-3 outline-none focus:border-green-500 bg-white text-gray-800 shadow-sm">
-                        <option value="" disabled selected>Seleccione la vereda...</option>
-                        <option value="Altomira">Altomira</option>
-                        <option value="Arrayanes">Arrayanes</option>
-                        <option value="Buenavista">Buenavista</option>
-                        <option value="El Bosque">El Bosque</option>
-                        <option value="El Contento">El Contento</option>
-                        <option value="El Pacífico">El Pacífico</option>
-                        <option value="El Vaticano">El Vaticano</option>
-                        <option value="Guaimaral">Guaimaral</option>
-                        <option value="La Ciénaga">La Ciénaga</option>
-                        <option value="La Estrella">La Estrella</option>
-                        <option value="La Morelia">La Morelia</option>
-                        <option value="La Paz">La Paz</option>
-                        <option value="La Primavera">La Primavera</option>
-                        <option value="Los Caímos">Los Caímos</option>
-                        <option value="Morro Azul">Morro Azul</option>
-                        <option value="Pueblo Rico">Pueblo Rico</option>
-                        <option value="Tamboral">Tamboral</option>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase ml-2">Ubicación</label>
+                    <select id="vereda" required class="w-full border-2 p-3 rounded-xl bg-white outline-none focus:border-green-500">
+                        <option value="" disabled selected>Seleccione Vereda...</option>
+                        <option>Altomira</option><option>Arrayanes</option><option>Buenavista</option>
+                        <option>El Bosque</option><option>El Contento</option><option>El Pacífico</option>
+                        <option>El Vaticano</option><option>Guaimaral</option><option>La Ciénaga</option>
+                        <option>La Estrella</option><option>La Morelia</option><option>La Paz</option>
+                        <option>La Primavera</option><option>Los Caímos</option><option>Morro Azul</option>
+                        <option>Pueblo Rico</option><option>Tamboral</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-600 mb-1">Nombre de la Finca</label>
-                    <input type="text" id="finca" required placeholder="Nombre del predio" class="w-full border-2 border-gray-200 rounded-xl p-3 outline-none focus:border-green-500 shadow-sm">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase ml-2">Nombre del Predio</label>
+                    <input type="text" id="finca" placeholder="Nombre de la Finca" required class="w-full border-2 p-3 rounded-xl outline-none focus:border-green-500">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-600 mb-1">Propietario / Administrador</label>
-                    <input type="text" id="responsable" required placeholder="Nombre de la persona" class="w-full border-2 border-gray-200 rounded-xl p-3 outline-none focus:border-green-500 shadow-sm">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase ml-2">Encargado</label>
+                    <input type="text" id="responsable" placeholder="Propietario / Administrador" required class="w-full border-2 p-3 rounded-xl outline-none focus:border-green-500">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-600 mb-1">Número Telefónico</label>
-                    <input type="tel" id="telefono" required placeholder="Ej: 310 000 0000" class="w-full border-2 border-gray-200 rounded-xl p-3 outline-none focus:border-green-500 shadow-sm">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase ml-2">Contacto</label>
+                    <input type="tel" id="telefono" placeholder="Número de Teléfono" required class="w-full border-2 p-3 rounded-xl outline-none focus:border-green-500">
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-600 mb-1 italic">¿Hubo Aporte?</label>
-                        <select id="aporto" class="w-full border-2 border-gray-200 rounded-xl p-3 outline-none focus:border-green-500 bg-white shadow-sm">
-                            <option value="Sí">✅ Sí</option>
-                            <option value="No">❌ No</option>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase ml-2">¿Aportó?</label>
+                        <select id="aporto" class="w-full border-2 p-3 rounded-xl bg-white outline-none focus:border-green-500">
+                            <option>Sí</option>
+                            <option>No</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-600 mb-1 italic">Cant. Racimos</label>
-                        <input type="number" id="cantidad" value="0" min="0" class="w-full border-2 border-gray-100 rounded-xl p-3 outline-none focus:border-green-500 shadow-sm font-bold text-green-800">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase ml-2">Racimos</label>
+                        <input type="number" id="cantidad" value="0" min="0" class="w-full border-2 p-3 rounded-xl font-bold text-green-700 outline-none focus:border-green-500">
                     </div>
                 </div>
 
-                <button type="submit" id="btnEnviar" class="w-full bg-green-600 text-white font-black py-4 rounded-xl shadow-lg active:scale-95 transition-all mt-6 text-lg hover:bg-green-700">
-                    GUARDAR REGISTRO 🍌
+                <button type="submit" id="btn-save" class="w-full bg-green-600 text-white font-black py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-all">
+                    GUARDAR DATOS 🍌
+                </button>
+                <button type="button" id="btn-cancel" onclick="resetForm()" class="hidden w-full bg-gray-500 text-white font-bold py-2 rounded-xl mt-2 text-sm">
+                    CANCELAR EDICIÓN
                 </button>
             </form>
-            <p id="mensaje" class="mt-4 text-center hidden"></p>
+            <div id="offline-msg" class="hidden mt-4 p-3 bg-amber-100 text-amber-800 text-[11px] rounded-lg font-bold text-center border border-amber-200">
+                ⚠️ SIN CONEXIÓN: Datos protegidos en el celular. Se sincronizarán al detectar internet.
+            </div>
         </div>
     </main>
 
-    <main id="seccion-directorio" class="p-4 max-w-md mx-auto hidden">
-        <div class="flex justify-between items-center mb-4 glass-effect p-4 rounded-2xl shadow-md border-b-2 border-green-500">
-            <h2 class="text-lg font-bold text-gray-800">Recolección Actual</h2>
-            <button onclick="cargarDatos()" class="bg-green-600 text-white p-2 px-4 rounded-lg shadow-sm hover:rotate-180 transition-all duration-500">
-                <i class="fas fa-sync-alt"></i>
+    <main id="sec-directorio" class="p-4 max-w-md mx-auto hidden">
+        <div class="flex justify-between items-center mb-4 glass-effect p-3 rounded-xl shadow border-b-2 border-green-500">
+            <h2 class="font-bold text-gray-700">Registros en la Nube</h2>
+            <button onclick="cargarDatos()" class="bg-green-600 text-white p-2 px-3 rounded-lg text-sm active:rotate-180 transition-all duration-500">
+                <i class="fas fa-sync"></i>
             </button>
         </div>
-        <div id="lista-directorio" class="space-y-4"></div>
+        <div id="lista" class="space-y-4 pb-10"></div>
     </main>
 
-    <footer class="text-center p-3 text-gray-700 text-[10px] uppercase font-black tracking-widest fixed bottom-0 w-full bg-white/90 backdrop-blur-sm border-t border-gray-200">
+    <footer class="text-center p-3 text-gray-500 text-[10px] uppercase font-bold tracking-widest fixed bottom-0 w-full bg-white/90 backdrop-blur-sm border-t border-gray-100">
         Banda Sinfónica San José | Caldas
     </footer>
 
     <script>
-        // URL de tu Script vinculada correctamente
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbx3IoXmd3UWFCIBPf6UJfyiyEwWhg12o90ukBU7fJaNHUva3ettS0YmpLbPJJBmR_4JAg/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbow393wQhfOrt85djreYPjxG21AfUERZnOVNIfVJZkjWd8s74zGflsw1uQhxzfe-WGQw/exec';
 
-        function mostrarSeccion(seccion) {
-            document.getElementById('seccion-registro').classList.toggle('hidden', seccion !== 'registro');
-            document.getElementById('seccion-directorio').classList.toggle('hidden', seccion !== 'directorio');
-            document.getElementById('btn-registro').className = seccion === 'registro' ? "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700" : "flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent";
-            document.getElementById('btn-directorio').className = seccion === 'directorio' ? "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700" : "flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent";
-            if(seccion === 'directorio') cargarDatos();
+        // GESTIÓN DE ESTADO ONLINE/OFFLINE
+        window.addEventListener('online', () => {
+            document.getElementById('status-online').innerText = "● Sistema en Línea";
+            document.getElementById('status-online').className = "text-[10px] font-bold mt-1 text-green-300 uppercase tracking-widest";
+            syncOfflineData();
+        });
+
+        window.addEventListener('offline', () => {
+            document.getElementById('status-online').innerText = "● Modo Offline (Seguro)";
+            document.getElementById('status-online').className = "text-[10px] font-bold mt-1 text-amber-400 uppercase tracking-widest";
+        });
+
+        function mostrarSeccion(s) {
+            document.getElementById('sec-registro').classList.toggle('hidden', s !== 'registro');
+            document.getElementById('sec-directorio').classList.toggle('hidden', s !== 'directorio');
+            document.getElementById('btn-reg').className = s === 'registro' ? "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700" : "flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent";
+            document.getElementById('btn-dir').className = s === 'directorio' ? "flex-1 p-4 font-bold text-green-700 border-b-4 border-green-700" : "flex-1 p-4 font-bold text-gray-400 border-b-4 border-transparent";
+            if(s === 'directorio') cargarDatos();
         }
 
-        const form = document.getElementById('registroForm');
+        const form = document.getElementById('mainForm');
         form.addEventListener('submit', e => {
             e.preventDefault();
-            const btn = document.getElementById('btnEnviar');
-            const msg = document.getElementById('mensaje');
-            btn.disabled = true;
-            btn.innerText = "Procesando...";
-            msg.className = "mt-4 text-center text-blue-800 font-bold block bg-blue-100 p-3 rounded-xl animate-pulse";
-            msg.innerText = "Sincronizando con la nube...";
-
+            const id = document.getElementById('edit-id').value;
             const data = {
-                action: 'addRegistro',
+                action: id ? 'editRegistro' : 'addRegistro',
+                id: id,
                 finca: document.getElementById('finca').value,
                 responsable: document.getElementById('responsable').value,
                 telefono: document.getElementById('telefono').value,
@@ -151,58 +153,129 @@
                 cantidad: document.getElementById('cantidad').value
             };
 
-            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
-            .then(() => {
-                msg.innerText = "✅ ¡REGISTRO EXITOSO!";
-                msg.className = "mt-4 text-center text-green-800 font-bold block bg-green-200 p-3 rounded-xl border-2 border-green-400";
-                form.reset();
-                btn.disabled = false;
-                btn.innerText = "GUARDAR REGISTRO 🍌";
-                setTimeout(() => msg.classList.add('hidden'), 4000);
-            })
-            .catch(() => {
-                alert("Error de conexión. Verifica tu internet.");
-                btn.disabled = false;
-                btn.innerText = "GUARDAR REGISTRO 🍌";
-            });
+            if (navigator.onLine) {
+                enviarAGoogle(data);
+            } else {
+                saveLocally(data);
+                document.getElementById('offline-msg').classList.remove('hidden');
+                setTimeout(() => { resetForm(); alert("Guardado localmente. Se enviará al detectar internet."); }, 500);
+            }
         });
 
+        function enviarAGoogle(data) {
+            const btn = document.getElementById('btn-save');
+            btn.disabled = true;
+            btn.innerText = "Sincronizando...";
+
+            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
+            .then(() => {
+                resetForm();
+                btn.disabled = false;
+                btn.innerText = "GUARDAR DATOS 🍌";
+                if(data.action === 'editRegistro') {
+                    alert("Cambios guardados con éxito.");
+                    mostrarSeccion('directorio');
+                } else {
+                    alert("Registro guardado en la nube.");
+                }
+            })
+            .catch(() => {
+                saveLocally(data);
+                alert("Error de conexión. Guardado en memoria local.");
+                resetForm();
+            });
+        }
+
+        function saveLocally(data) {
+            let pending = JSON.parse(localStorage.getItem('banda_sync') || '[]');
+            pending.push(data);
+            localStorage.setItem('banda_sync', JSON.stringify(pending));
+        }
+
+        function syncOfflineData() {
+            let pending = JSON.parse(localStorage.getItem('banda_sync') || '[]');
+            if (pending.length > 0) {
+                pending.forEach(d => enviarAGoogle(d));
+                localStorage.removeItem('banda_sync');
+            }
+        }
+
         function cargarDatos() {
-            const lista = document.getElementById('lista-directorio');
-            lista.innerHTML = '<div class="text-center py-10"><i class="fas fa-circle-notch fa-spin text-white text-5xl"></i><p class="text-white font-bold mt-2">Buscando datos...</p></div>';
+            const lista = document.getElementById('lista');
+            lista.innerHTML = '<div class="text-center p-10"><i class="fas fa-spinner fa-spin text-white text-4xl"></i></div>';
             
             fetch(scriptURL + '?getRegistros=true')
             .then(res => res.json())
             .then(datos => {
                 lista.innerHTML = "";
                 if(datos.length === 0) {
-                    lista.innerHTML = '<p class="text-center text-white font-bold bg-black/40 py-10 rounded-xl">No hay registros aún.</p>';
+                    lista.innerHTML = '<p class="text-center text-white font-bold bg-black/30 p-10 rounded-2xl">No hay registros.</p>';
                     return;
                 }
                 datos.reverse().forEach(item => {
                     const card = document.createElement('div');
-                    card.className = "glass-effect p-5 rounded-2xl shadow-lg border-l-8 " + (item.aporto === 'Sí' ? 'border-green-600' : 'border-amber-400');
+                    card.className = "glass-effect p-4 rounded-2xl shadow-lg border-l-8 " + (item.aporto === 'Sí' ? 'border-green-600' : 'border-amber-500');
                     card.innerHTML = `
                         <div class="flex justify-between items-start">
                             <div class="flex-1">
-                                <h3 class="font-black text-gray-900 text-lg leading-tight mb-1">${item.finca}</h3>
-                                <p class="text-[11px] text-green-700 font-black uppercase tracking-tighter mb-2"><i class="fas fa-map-marker-alt mr-1"></i>${item.vereda}</p>
+                                <h3 class="font-bold text-gray-900 leading-tight">${item.finca}</h3>
+                                <p class="text-[10px] text-green-700 font-bold uppercase mb-2"><i class="fas fa-map-marker-alt"></i> ${item.vereda}</p>
                                 <div class="space-y-1">
-                                    <p class="text-xs text-gray-700 font-medium"><i class="fas fa-user-circle mr-2 text-gray-400"></i>${item.responsable}</p>
-                                    <p class="text-xs text-blue-700 font-bold"><i class="fas fa-phone-alt mr-2 text-blue-300"></i>${item.telefono}</p>
+                                    <p class="text-xs text-gray-600"><i class="fas fa-user text-gray-400 mr-1"></i> ${item.responsable}</p>
+                                    <p class="text-xs text-blue-600 font-bold"><i class="fas fa-phone text-blue-300 mr-1"></i> ${item.telefono}</p>
                                 </div>
                             </div>
-                            <div class="bg-green-100 p-3 rounded-2xl text-center min-w-[70px] border-2 border-green-200 shadow-inner">
-                                <span class="text-3xl font-black text-green-800 leading-none">${item.cantidad}</span>
-                                <p class="text-[9px] text-green-700 font-black uppercase mt-1 leading-none">Racimos</p>
+                            <div class="text-center bg-green-100 p-2 rounded-xl min-w-[65px] border border-green-200">
+                                <span class="text-2xl font-black text-green-800">${item.cantidad}</span>
+                                <p class="text-[8px] font-bold text-green-700 uppercase">Racimos</p>
                             </div>
+                        </div>
+                        <div class="flex gap-2 mt-4 pt-3 border-t border-gray-100">
+                            <button onclick='iniciarEdicion(${JSON.stringify(item)})' class="flex-1 bg-blue-50 text-blue-700 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider">
+                                <i class="fas fa-edit mr-1"></i> Editar
+                            </button>
+                            <button onclick="eliminarRegistro(${item.id})" class="flex-1 bg-red-50 text-red-600 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider">
+                                <i class="fas fa-trash mr-1"></i> Eliminar
+                            </button>
                         </div>`;
                     lista.appendChild(card);
                 });
             })
-            .catch(err => {
-                lista.innerHTML = '<p class="text-center text-red-100 font-bold bg-red-600/50 py-10 rounded-xl">Error al cargar datos. Refresca la página.</p>';
+            .catch(() => {
+                lista.innerHTML = '<p class="text-center text-white p-10">Revisa tu conexión a internet.</p>';
             });
+        }
+
+        function iniciarEdicion(item) {
+            mostrarSeccion('registro');
+            document.getElementById('form-title').innerHTML = '<i class="fas fa-edit text-blue-600 mr-2"></i> Editando Registro';
+            document.getElementById('edit-id').value = item.id;
+            document.getElementById('finca').value = item.finca;
+            document.getElementById('responsable').value = item.responsable;
+            document.getElementById('telefono').value = item.telefono;
+            document.getElementById('vereda').value = item.vereda;
+            document.getElementById('aporto').value = item.aporto;
+            document.getElementById('cantidad').value = item.cantidad;
+            document.getElementById('btn-save').innerText = "GUARDAR CAMBIOS";
+            document.getElementById('btn-save').classList.replace('bg-green-600', 'bg-blue-600');
+            document.getElementById('btn-cancel').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function resetForm() {
+            form.reset();
+            document.getElementById('edit-id').value = "";
+            document.getElementById('form-title').innerHTML = '<i class="fas fa-file-signature text-green-600 mr-2"></i> Nuevo Aporte';
+            document.getElementById('btn-save').innerText = "GUARDAR DATOS 🍌";
+            document.getElementById('btn-save').classList.replace('bg-blue-600', 'bg-green-600');
+            document.getElementById('btn-cancel').classList.add('hidden');
+            document.getElementById('offline-msg').classList.add('hidden');
+        }
+
+        function eliminarRegistro(id) {
+            if(!confirm("¿Deseas eliminar permanentemente esta finca del listado?")) return;
+            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({action: 'deleteRegistro', id: id}) })
+            .then(() => { alert("Registro eliminado."); cargarDatos(); });
         }
     </script>
 </body>
